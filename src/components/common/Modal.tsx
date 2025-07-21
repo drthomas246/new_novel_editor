@@ -1,4 +1,11 @@
-export default function Modal({ children, onClose }) {
+import { ReactNode } from "react";
+
+interface ModalProps {
+  children: ReactNode;
+  onClose: () => void;
+}
+
+export default function Modal({ children, onClose }: ModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded shadow w-full max-w-2xl max-h-[66vh] overflow-y-auto p-4">

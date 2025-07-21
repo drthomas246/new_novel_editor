@@ -1,5 +1,5 @@
 import PersonalityDiagnoseModal from "@/components/characters/PersonalityDiagnoseModal";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -8,32 +8,32 @@ import { useEffect, useState } from "react";
 export default function CharacterEditPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (id) {
       axios
         .get("/api/my-characters")
-        .then((res) => {
-          const found = res.data.find((c) => c.id === id);
+        .then((res: any) => {
+          const found = res.data.find((c: any) => c.id === id);
           if (found) setCharacter(found);
           else console.error("Character not found");
         })
-        .catch((err) => console.error(err));
+        .catch((err: any) => console.error(err));
     }
   }, [id]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCharacter((prev) => ({ ...prev, [name]: value }));
+    setCharacter((prev: any) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
     axios
       .put(`/api/characters/${id}`, character)
       .then(() => router.push("/mypage/characters"))
-      .catch((err) => console.error(err));
+      .catch((err: any) => console.error(err));
   };
 
   const handleDiagnose = () => {

@@ -1,28 +1,28 @@
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common/Button";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function MyCharactersPage() {
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState<any[]>([]);
 
   useEffect(() => {
     axios
       .get("/api/my-characters")
-      .then((res) => setCharacters(res.data))
-      .catch((err) => console.error(err));
+      .then((res: any) => setCharacters(res.data))
+      .catch((err: any) => console.error(err));
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     if (confirm("本当に削除しますか？")) {
       axios
         .delete(`/api/characters/${id}`)
-        .then(() => setCharacters((prev) => prev.filter((c) => c.id !== id)))
-        .catch((err) => console.error(err));
+        .then(() => setCharacters((prev: any[]) => prev.filter((c: any) => c.id !== id)))
+        .catch((err: any) => console.error(err));
     }
   };
 
-  const handleDiagnose = (id) => {
+  const handleDiagnose = (id: string) => {
     // ここでPersonality CheckBox UIをモーダル起動する処理を書く
     alert(`診断UI起動: キャラID ${id}`);
   };
@@ -37,7 +37,7 @@ export default function MyCharactersPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {characters.map((char) => (
+        {characters.map((char: any) => (
           <div key={char.id} className="bg-white shadow rounded p-4 space-y-2">
             <img
               src={char.imageUrl}

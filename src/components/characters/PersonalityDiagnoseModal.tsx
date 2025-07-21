@@ -1,5 +1,5 @@
-import { Button } from "@/components/common/button";
-import { Card, CardContent } from "@/components/common/card";
+import { Button } from "@/components/common/Button";
+import { Card, CardContent } from "@/components/common/Card";
 import personalityMap from "@/data/personalityMap.json";
 import { useEffect, useState } from "react";
 import {
@@ -49,14 +49,23 @@ const template = {
   ],
 };
 
-function shuffleArray(array) {
+type Category = keyof typeof template;
+
+function shuffleArray<T>(array: T[]): T[] {
   return array
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 }
 
-const getRoleFromCSV = (base, decision, action, relation, value, data) => {
+const getRoleFromCSV = (
+  base: string,
+  decision: string,
+  action: string,
+  relation: string,
+  value: string,
+  data: any[]
+): { role: string; description: string } => {
   const row = data.find(
     (d) =>
       d["基本気質"] === base &&
@@ -74,7 +83,7 @@ const getRoleFromCSV = (base, decision, action, relation, value, data) => {
 };
 
 export default function PersonalityDiagnoseModal() {
-  const [shuffledQuestions, setShuffledQuestions] = useState([]);
+  const [shuffledQuestions, setShuffledQuestions] = useState<{ cat: string; idx: number; q: string }[]>([]);
   const [scores, setScores] = useState({
     base: 0,
     decision: 0,
@@ -82,19 +91,19 @@ export default function PersonalityDiagnoseModal() {
     relation: 0,
     value: 0,
   });
-  const [answers, setAnswers] = useState({});
-  const [result, setResult] = useState(null);
+  const [answers, setAnswers] = useState<Record<string, number[]>>({});
+  const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
     const allQuestions = Object.entries(template).flatMap(([cat, questions]) =>
-      questions.map((q, idx) => ({ cat, idx, q }))
+      questions.map((q, idx) => ({ cat: cat as Category, idx, q }))
     );
     setShuffledQuestions(shuffleArray(allQuestions));
   }, []);
 
-  const handleCheck = (cat, idx) => {
+  const handleCheck = (cat: Category, idx: number) => {
     const updated = answers[cat]?.includes(idx)
-      ? answers[cat].filter((i) => i !== idx)
+      ? answers[cat].filter((i: number) => i !== idx)
       : [...(answers[cat] || []), idx];
     const normalized = Math.round((updated.length / template[cat].length) * 5);
     setAnswers({ ...answers, [cat]: updated });
@@ -159,7 +168,7 @@ export default function PersonalityDiagnoseModal() {
     <div className="max-w-2xl mx-auto p-4 space-y-6">
       <h1 className="text-2xl font-bold text-center">性格診断テスト</h1>
 
-      {shuffledQuestions.map(({ cat, idx, q }, displayIdx) => (
+      {shuffledQuestions.map(({ cat, idx, q }: { cat: Category; idx: number; q: string }, displayIdx: number) => (
         <label key={`${cat}-${idx}`} className="flex items-center space-x-2">
           <input
             type="checkbox"
