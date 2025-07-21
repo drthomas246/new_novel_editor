@@ -1,24 +1,24 @@
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common/Button";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function MyNovelsPage() {
-  const [novels, setNovels] = useState([]);
+  const [novels, setNovels] = useState<any[]>([]);
 
   useEffect(() => {
     axios
       .get("/api/my-novels")
-      .then((res) => setNovels(res.data))
-      .catch((err) => console.error(err));
+      .then((res: any) => setNovels(res.data))
+      .catch((err: any) => console.error(err));
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     if (confirm("本当に削除しますか？")) {
       axios
         .delete(`/api/novels/${id}`)
-        .then(() => setNovels((prev) => prev.filter((n) => n.id !== id)))
-        .catch((err) => console.error(err));
+        .then(() => setNovels((prev: any[]) => prev.filter((n: any) => n.id !== id)))
+        .catch((err: any) => console.error(err));
     }
   };
 
@@ -32,7 +32,7 @@ export default function MyNovelsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {novels.map((novel) => (
+        {novels.map((novel: any) => (
           <div key={novel.id} className="bg-white shadow rounded p-4 space-y-2">
             <h2 className="text-lg font-semibold">{novel.title}</h2>
             <p className="text-gray-600 text-sm">{novel.summary}</p>

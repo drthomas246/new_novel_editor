@@ -1,11 +1,20 @@
+import { ButtonHTMLAttributes, ReactNode } from "react";
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  onClick?: () => void;
+}
+
 export function Button({
   children,
   onClick,
   size = "md",
   className = "",
   ...props
-}) {
-  const sizes = {
+}: ButtonProps) {
+  const sizes: Record<"sm" | "md" | "lg", string> = {
     sm: "px-2 py-1 text-sm",
     md: "px-4 py-2",
     lg: "px-6 py-3 text-lg",

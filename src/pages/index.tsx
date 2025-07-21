@@ -1,17 +1,17 @@
-import { Button } from "@/components/common/button";
-import { Card, CardContent } from "@/components/common/card";
+import { Button } from "@/components/common/Button";
+import { Card, CardContent } from "@/components/common/Card";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const [novels, setNovels] = useState([]);
+  const [novels, setNovels] = useState<any[]>([]);
 
   useEffect(() => {
     axios
       .get("/api/novels")
-      .then((res) => setNovels(res.data))
-      .catch((err) => console.error(err));
+      .then((res: any) => setNovels(res.data))
+      .catch((err: any) => console.error(err));
   }, []);
 
   return (
@@ -23,7 +23,7 @@ export default function HomePage() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {novels.map((novel) => (
+        {novels.map((novel: any) => (
           <Card key={novel.id}>
             <CardContent className="space-y-2">
               <h2 className="text-xl font-semibold">{novel.title}</h2>
