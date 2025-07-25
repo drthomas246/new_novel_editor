@@ -17,7 +17,9 @@ export default function MyNovelsPage() {
     if (confirm("本当に削除しますか？")) {
       axios
         .delete(`/api/novels/${id}`)
-        .then(() => setNovels((prev: any[]) => prev.filter((n: any) => n.id !== id)))
+        .then(() =>
+          setNovels((prev: any[]) => prev.filter((n: any) => n.id !== id))
+        )
         .catch((err: any) => console.error(err));
     }
   };

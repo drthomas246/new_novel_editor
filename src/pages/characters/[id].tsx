@@ -1,43 +1,15 @@
-import axios from "axios";
+import { CharacterRadarChart } from "@/components/characters/CharacterRadarChart";
+import { useCharacter } from "@/hooks/useCharacter";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import {
-  PolarAngleAxis,
-  PolarGrid,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-  ResponsiveContainer,
-} from "recharts";
 
 export default function CharacterDetailPage() {
   const router = useRouter();
   const { id, userId } = router.query;
-  const [character, setCharacter] = useState(null);
-
-  useEffect(() => {
-    if (id) {
-      axios
-        .get("/api/my-characters")
-        .then((res) => {
-          const found = res.data.find((character) => character.id === id);
-          if (found) setCharacter(found);
-          else console.error("Character not found");
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [id]);
+  const { character, setCharacter, chartData, saveCharacter } =
+    useCharacter(id);
 
   if (!character) return <div className="text-center p-6">読み込み中...</div>;
-
-  const chartData = [
-    { subject: "勇気", value: 80 },
-    { subject: "知性", value: 70 },
-    { subject: "社交性", value: 60 },
-    { subject: "感受性", value: 90 },
-    { subject: "忍耐力", value: 75 },
-  ]; // モック値（診断結果を後でAPI連携可）
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
@@ -52,11 +24,13 @@ export default function CharacterDetailPage() {
         <img
           src={character.imageUrl}
           alt="character"
-          className="w-full h-64 object-cover rounded"
+          className="w-full h-64 object-contain rounded"
         />
         <h1 className="text-2xl font-bold">{character.name}</h1>
-        <p className="text-gray-600">性格: {character.personality}</p>
         <p className="text-gray-600">役職: {character.role}</p>
+        <p className="text-gray-600">性格: {character.personality}</p>
+        <p className="text-gray-600">人格の根幹: {character.corePersonality}</p>
+        <p className="text-gray-600">行動理念: {character.actionPhilosophy}</p>
       </div>
 
       <div className="bg-white shadow rounded p-4">
@@ -64,20 +38,7 @@ export default function CharacterDetailPage() {
           性格診断チャート
         </h2>
         <div className="h-64">
-          <ResponsiveContainer>
-            <RadarChart data={chartData}>
-              <PolarGrid />
-              <PolarAngleAxis dataKey="subject" />
-              <PolarRadiusAxis angle={30} domain={[0, 100]} />
-              <Radar
-                name="診断結果"
-                dataKey="value"
-                stroke="#8884d8"
-                fill="#8884d8"
-                fillOpacity={0.6}
-              />
-            </RadarChart>
-          </ResponsiveContainer>
+          <CharacterRadarChart data={chartData} />
         </div>
       </div>
     </div>

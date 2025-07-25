@@ -83,7 +83,9 @@ const getRoleFromCSV = (
 };
 
 export default function PersonalityDiagnoseModal() {
-  const [shuffledQuestions, setShuffledQuestions] = useState<{ cat: string; idx: number; q: string }[]>([]);
+  const [shuffledQuestions, setShuffledQuestions] = useState<
+    { cat: Category; idx: number; q: string }[]
+  >([]);
   const [scores, setScores] = useState({
     base: 0,
     decision: 0,
@@ -168,16 +170,21 @@ export default function PersonalityDiagnoseModal() {
     <div className="max-w-2xl mx-auto p-4 space-y-6">
       <h1 className="text-2xl font-bold text-center">性格診断テスト</h1>
 
-      {shuffledQuestions.map(({ cat, idx, q }: { cat: Category; idx: number; q: string }, displayIdx: number) => (
-        <label key={`${cat}-${idx}`} className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            checked={answers[cat]?.includes(idx) || false}
-            onChange={() => handleCheck(cat, idx)}
-          />
-          <span>{`${displayIdx + 1}. ${q}`}</span>
-        </label>
-      ))}
+      {shuffledQuestions.map(
+        (
+          { cat, idx, q }: { cat: Category; idx: number; q: string },
+          displayIdx: number
+        ) => (
+          <label key={`${cat}-${idx}`} className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              checked={answers[cat]?.includes(idx) || false}
+              onChange={() => handleCheck(cat, idx)}
+            />
+            <span>{`${displayIdx + 1}. ${q}`}</span>
+          </label>
+        )
+      )}
 
       <Button className="w-full" onClick={handleDiagnose}>
         診断する

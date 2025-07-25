@@ -17,7 +17,9 @@ export default function MyCharactersPage() {
     if (confirm("本当に削除しますか？")) {
       axios
         .delete(`/api/characters/${id}`)
-        .then(() => setCharacters((prev: any[]) => prev.filter((c: any) => c.id !== id)))
+        .then(() =>
+          setCharacters((prev: any[]) => prev.filter((c: any) => c.id !== id))
+        )
         .catch((err: any) => console.error(err));
     }
   };
@@ -42,7 +44,7 @@ export default function MyCharactersPage() {
             <img
               src={char.imageUrl}
               alt="character"
-              className="w-full h-32 object-cover rounded"
+              className="w-full h-64 object-contain rounded"
             />
             <h2 className="text-lg font-semibold">{char.name}</h2>
             <p className="text-sm text-gray-600">性格: {char.personality}</p>
