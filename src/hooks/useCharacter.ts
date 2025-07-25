@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Character } from "@/types/character";
 
 export function useCharacter(id: string | string[] | undefined) {
   const router = useRouter();
-  const [character, setCharacter] = useState<any>(null);
+  const [character, setCharacter] = useState<Character | null>(null);
   const [chartData, setChartData] = useState<
     { category: string; score: number }[]
   >([]);
@@ -12,9 +13,9 @@ export function useCharacter(id: string | string[] | undefined) {
   useEffect(() => {
     if (id) {
       axios
-        .get("/api/my-characters")
-        .then((res: any) => {
-          const found = res.data.find((c: any) => c.id === id);
+        .get<Character[]>("/api/my-characters")
+        .then((res) => {
+          const found = res.data.find((c) => c.id === id);
           if (found) {
             setCharacter(found);
             setChartData([

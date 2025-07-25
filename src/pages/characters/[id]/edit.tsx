@@ -16,9 +16,13 @@ export default function CharacterEditPage() {
 
   if (!character) return <div className="text-center p-6">読み込み中...</div>;
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setCharacter((prev: any) => ({ ...prev, [name]: value }));
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+      | { target: { name: string; value: string | boolean } }
+  ) => {
+    const { name, value } = e.target as { name: string; value: any };
+    setCharacter((prev) => (prev ? { ...prev, [name]: value } : prev));
   };
 
   return (
