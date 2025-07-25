@@ -1,8 +1,18 @@
 import ImagePreview from "@/components/common/ImagePreview";
 import SelectField from "@/components/common/SelectField";
 import TextField from "@/components/common/TextField";
+import { Character } from "@/types/character";
 
-export function CharacterForm({ character, onChange }: any) {
+interface CharacterFormProps {
+  character: Character;
+  onChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+      | { target: { name: string; value: string | boolean } }
+  ) => void;
+}
+
+export function CharacterForm({ character, onChange }: CharacterFormProps) {
   return (
     <>
       <TextField

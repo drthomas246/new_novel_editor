@@ -2,15 +2,16 @@ import { Button } from "@/components/common/Button";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Character } from "@/types/character";
 
 export default function MyCharactersPage() {
-  const [characters, setCharacters] = useState<any[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
     axios
-      .get("/api/my-characters")
-      .then((res: any) => setCharacters(res.data))
-      .catch((err: any) => console.error(err));
+      .get<Character[]>("/api/my-characters")
+      .then((res) => setCharacters(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   const handleDelete = (id: string) => {
@@ -18,9 +19,9 @@ export default function MyCharactersPage() {
       axios
         .delete(`/api/characters/${id}`)
         .then(() =>
-          setCharacters((prev: any[]) => prev.filter((c: any) => c.id !== id))
+          setCharacters((prev) => prev.filter((c) => c.id !== id))
         )
-        .catch((err: any) => console.error(err));
+        .catch((err) => console.error(err));
     }
   };
 
