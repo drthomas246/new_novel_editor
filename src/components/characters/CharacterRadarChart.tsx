@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export function CharacterRadarChart({ data }: { data: any[] }) {
+export function CharacterRadarChart({ data }: CharacterRadarChartProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>

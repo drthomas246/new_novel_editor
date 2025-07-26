@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Character } from "@/types/character";
 
 export function useCharacter(id: string | string[] | undefined) {
   const router = useRouter();

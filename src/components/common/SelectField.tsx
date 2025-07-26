@@ -1,11 +1,9 @@
-type Props = {
-  label: string;
-  name: string;
-  value: boolean;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-
-export default function SelectField({ label, name, value, onChange }: Props) {
+export default function SelectField({
+  label,
+  name,
+  value,
+  onChange,
+}: SelectFieldProps) {
   return (
     <label className="block">
       {label}:

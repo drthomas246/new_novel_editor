@@ -2,7 +2,6 @@ import { Button } from "@/components/common/Button";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Character } from "@/types/character";
 
 export default function MyCharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -18,9 +17,7 @@ export default function MyCharactersPage() {
     if (confirm("本当に削除しますか？")) {
       axios
         .delete(`/api/characters/${id}`)
-        .then(() =>
-          setCharacters((prev) => prev.filter((c) => c.id !== id))
-        )
+        .then(() => setCharacters((prev) => prev.filter((c) => c.id !== id)))
         .catch((err) => console.error(err));
     }
   };

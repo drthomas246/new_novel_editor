@@ -7,6 +7,7 @@ const mockMyNovels = [
     summary: "異世界での壮大な物語",
     isPublic: true,
     updatedAt: "2024-06-01",
+    authorName: "田中太郎",
   },
   {
     id: "2",
@@ -14,6 +15,7 @@ const mockMyNovels = [
     summary: "月にまつわる不思議な力",
     isPublic: false,
     updatedAt: "2024-05-20",
+    authorName: "田中太郎",
   },
   {
     id: "3",
@@ -21,6 +23,7 @@ const mockMyNovels = [
     summary: "近未来の友情と成長",
     isPublic: true,
     updatedAt: "2024-05-10",
+    authorName: "田中太郎",
   },
 ];
 

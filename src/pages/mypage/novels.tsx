@@ -48,7 +48,7 @@ export default function MyNovelsPage() {
               ｜ 更新日: {novel.updatedAt}
             </p>
             <div className="flex space-x-2">
-              <Link href={`/mypage/novel/${novel.id}/edit`}>
+              <Link href={`/novel/${novel.id}/edit`}>
                 <Button size="sm">編集</Button>
               </Link>
               <Button

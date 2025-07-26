@@ -1,11 +1,9 @@
-type Props = {
-  label: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-export default function TextField({ label, name, value, onChange }: Props) {
+export default function TextField({
+  label,
+  name,
+  value,
+  onChange,
+}: TextFieldProps) {
   return (
     <label className="block">
       {label}:

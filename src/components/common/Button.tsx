@@ -1,12 +1,3 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
-
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  size?: "sm" | "md" | "lg";
-  className?: string;
-  onClick?: () => void;
-}
-
 export function Button({
   children,
   onClick,

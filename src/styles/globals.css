@@ -1,3 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+.ProseMirror {
+  height: 100%;
+  outline: none;
+}
+.editor-with-lines {
+  counter-reset: line;
+  line-height: 1.6;
+}
+
+.editor-with-lines p {
+  position: relative;
+  padding-left: 2em;
+}
+
+.editor-with-lines p::before {
+  counter-increment: line;
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: gray;
+  font-size: 0.9em;
+}

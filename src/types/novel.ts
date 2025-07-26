@@ -1,8 +1,23 @@
-export interface Novel {
-  id: string
-  userId: string
-  title: string
-  summary: string
-  createdAt: string
-  updatedAt: string
+interface Novel {
+  id: string;
+  userId: string;
+  title: string;
+  summary: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface LabeledInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  size?: "title" | "chapter";
+}
+
+interface NovelEditorProps {
+  setCharCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+interface ControlBarProps {
+  charCount: number;
 }

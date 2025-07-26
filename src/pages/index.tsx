@@ -9,7 +9,7 @@ export default function HomePage() {
 
   useEffect(() => {
     axios
-      .get("/api/novels")
+      .get("/api/my-novels")
       .then((res: any) => setNovels(res.data))
       .catch((err: any) => console.error(err));
   }, []);
@@ -23,22 +23,24 @@ export default function HomePage() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {novels.map((novel: any) => (
-          <Card key={novel.id}>
-            <CardContent className="space-y-2">
-              <h2 className="text-xl font-semibold">{novel.title}</h2>
-              <p className="text-sm text-gray-600">{novel.summary}</p>
-              <div className="text-sm text-gray-500">
-                作者: {novel.authorName}
-              </div>
-              <div className="flex justify-between">
-                <Link href={`/novel/${novel.id}`}>
-                  <Button size="sm">詳細</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {novels
+          .filter((novel) => novel.isPublic === true)
+          .map((novel: any) => (
+            <Card key={novel.id}>
+              <CardContent className="space-y-2">
+                <h2 className="text-xl font-semibold">{novel.title}</h2>
+                <p className="text-sm text-gray-600">{novel.summary}</p>
+                <div className="text-sm text-gray-500">
+                  作者: {novel.authorName}
+                </div>
+                <div className="flex justify-between">
+                  <Link href={`/novel/${novel.id}`}>
+                    <Button size="sm">詳細</Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
       </div>
     </div>
   );

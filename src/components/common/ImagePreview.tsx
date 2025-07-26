@@ -1,9 +1,4 @@
-type Props = {
-  url: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-export default function ImagePreview({ url, onChange }: Props) {
+export default function ImagePreview({ url, onChange }: ImagePreviewProps) {
   return (
     <>
       <label className="block">
