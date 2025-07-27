@@ -1,6 +1,4 @@
-import type { NextPage } from 'next'
-
-const CharactersPage: NextPage = () => {
+export default function CharactersPage() {
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold">Characters</h1>
@@ -8,5 +6,3 @@ const CharactersPage: NextPage = () => {
     </div>
   )
 }
-
-export default CharactersPage
