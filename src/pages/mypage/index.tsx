@@ -1,5 +1,6 @@
 import { Button } from "@/components/common/Button";
 import { useAuth } from "@/context/AuthContext";
+import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -14,6 +15,18 @@ export default function MyPage() {
     novelCount: 5,
     characterCount: 12,
     worldCount: 3,
+  };
+  const doLogout = () => {
+    const auth = getAuth();
+
+    signOut(auth)
+      .then(() => {
+        // ログアウトされたことをわかりやすくするためのアラート
+        alert("ログアウト完了！");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   useEffect(() => {
     if (user === null) router.push("/");
@@ -70,7 +83,14 @@ export default function MyPage() {
         <Link href="/mypage/settings">
           <Button>⚙️ 設定</Button>
         </Link>
-        <Button className="bg-red-600 hover:bg-red-700">🚪 ログアウト</Button>
+        <Button
+          className="bg-red-600 hover:bg-red-700"
+          onClick={() => {
+            doLogout();
+          }}
+        >
+          🚪 ログアウト
+        </Button>
       </div>
     </div>
   ) : (
