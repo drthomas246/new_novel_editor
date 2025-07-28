@@ -1,17 +1,43 @@
-'use client'
+"use client";
+
+import { auth } from "@/lib/firebase"; // 初期化済みの auth インスタンスをインポート
 import { onAuthStateChanged, User } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../lib/firebase";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-const AuthContext = createContext<User | null>(null);
-
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, setUser);
-    return () => unsub();
-  }, []);
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+type AuthContextType = {
+  user: User | null | undefined;
+  // undefined: 読み込み中
+  // null: 未ログイン
+  // User オブジェクト: ログイン済み
 };
 
-export const useAuth = () => useContext(AuthContext);
+const AuthContext = createContext<AuthContextType>({ user: undefined });
+
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null | undefined>(undefined);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
