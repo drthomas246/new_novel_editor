@@ -1,18 +1,34 @@
 "use client";
 
 import { Button } from "@/components/common/Button";
+import { useGetUserProfile } from "@/hooks/useGetUserProfile";
 import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 
 export default function MyPage() {
-  const userData = {
+  const { profile, loading } = useGetUserProfile();
+  if (loading) {
+    return <div>読み込み中…</div>;
+  }
+  let userData = {
     name: "田中太郎",
     bio: "ファンタジー作家。ドラゴンと冒険が好き。",
     avatarUrl: "/images/avatar.png",
-    novelCount: 5,
-    characterCount: 12,
-    worldCount: 3,
+    novelCount: 0,
+    characterCount: 0,
+    worldCount: 0,
   };
+  if (profile) {
+    userData = {
+      name: profile.name!,
+      bio: profile.bio!,
+      avatarUrl: profile.avatarUrl!,
+      novelCount: 5,
+      characterCount: 12,
+      worldCount: 3,
+    };
+  }
+
   const doLogout = () => {
     const auth = getAuth();
 
