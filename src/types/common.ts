@@ -33,3 +33,8 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
 }
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  children: React.ReactNode;
+  className?: string;
+}

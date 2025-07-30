@@ -1,4 +1,3 @@
-// hooks/useGetUserProfile.ts
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
