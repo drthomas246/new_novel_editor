@@ -13,8 +13,8 @@ export function Button({
 
   return (
     <button
+      className={`block rounded-md bg-fuchsia-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-fuchsia-800 cursor-pointer ${sizes[size]} ${className}`}
       onClick={onClick}
-      className={`bg-blue-600 text-white rounded hover:bg-blue-700 ${sizes[size]} ${className}`}
       {...props}
     >
       {children}
