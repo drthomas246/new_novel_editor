@@ -31,7 +31,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-[calc(100vh_-_64px)] flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">ログイン</h1>
         {error && (
@@ -73,13 +73,6 @@ export default function LoginPage() {
             className="underline text-blue-600 hover:text-blue-800"
           >
             パスワードを忘れた場合
-          </Link>
-          <br />
-          <Link
-            href="/signup"
-            className="underline text-blue-600 hover:text-blue-800"
-          >
-            新規登録はこちら
           </Link>
         </div>
       </div>

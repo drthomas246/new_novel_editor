@@ -27,9 +27,6 @@ export default function MyNovelsPage() {
         <Link href="/mypage/novel/new">
           <Button>新規小説作成</Button>
         </Link>
-        <Link href="/mypage">
-          <Button>戻る</Button>
-        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
