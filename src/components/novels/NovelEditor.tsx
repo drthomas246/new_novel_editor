@@ -25,7 +25,7 @@ export default function NovelEditor({ setCharCount }: NovelEditorProps) {
   return (
     <div className="flex-1 p-2 flex flex-col">
       <h3 className="text-sm text-gray-500 mb-1">✍️ エディタ本文エリア</h3>
-      <div className="border rounded bg-white flex-1 flex flex-col overflow-hidden">
+      <div className="bg-white flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 overflow-auto p-2">
           <EditorContent
             editor={editor}

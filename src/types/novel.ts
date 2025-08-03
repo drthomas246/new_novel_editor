@@ -21,3 +21,12 @@ interface NovelEditorProps {
 interface ControlBarProps {
   charCount: number;
 }
+
+interface TreeNode {
+  id: string;
+  title: string;
+  subtitle?: string;
+  type?: "novel" | "chapter" | "character" | "world";
+  expanded?: boolean;
+  children?: TreeNode[];
+}
